@@ -92,34 +92,13 @@
         }
 
         /* Hayır yazısının hareketi */
-        @keyframes moveAway {
-            0% {
-                transform: translate(0, 0);
-            }
-            100% {
-                transform: translate(calc(50px + 10vw), calc(50px + 10vh));
-            }
-        }
-
-        .move-away {
-            animation: moveAway 0.3s ease-in-out forwards;
-        }
-
-        .move-back {
-            animation: moveAway 0.3s ease-in-out reverse;
-        }
-
         #hayirBtn {
-            position: relative;
+            position: absolute;
             display: inline-block;
             cursor: pointer;
             transition: transform 0.3s ease-in-out;
         }
 
-        /* Evet butonunun sabit kalması */
-        #evetBtn {
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
@@ -128,7 +107,7 @@
         <div class="question">Beni seviyor musun?</div>
         <div class="answers">
             <button id="evetBtn" onclick="cevapEvet()">Evet</button>
-            <span id="hayirBtn" onmouseover="hayirKaçsın()" onmouseout="hayirGeriDön()" onclick="cevapHayir()">Hayır</span>
+            <span id="hayirBtn" onmouseover="hayirKaçsın()" onclick="cevapHayir()">Hayır</span>
         </div>
         <div id="message" class="hidden"></div>
     </div>
@@ -140,18 +119,11 @@
         function hayirKaçsın() {
             if (!hayirBtnClicked) {
                 const hayirBtn = document.getElementById('hayirBtn');
-                hayirBtn.classList.add('move-away'); // Hareket animasyonunu başlat
-                hayirBtn.style.pointerEvents = 'none'; // Yazıyı tıklanamaz hale getir
-            }
-        }
-
-        // Fareyi çektiğinde yazıyı eski yerine geri getirmek
-        function hayirGeriDön() {
-            if (!hayirBtnClicked) {
-                const hayirBtn = document.getElementById('hayirBtn');
-                hayirBtn.classList.remove('move-away');
-                hayirBtn.classList.add('move-back'); // Hareket animasyonunu geri al
-                hayirBtn.style.pointerEvents = 'auto'; // Yazıyı tekrar tıklanabilir hale getir
+                // Ekranın rastgele bir yerini hedefle
+                const randomX = Math.random() * (window.innerWidth - hayirBtn.offsetWidth);  // Ekranın genişliğine göre rastgele X
+                const randomY = Math.random() * (window.innerHeight - hayirBtn.offsetHeight); // Ekranın yüksekliğine göre rastgele Y
+                hayirBtn.style.left = randomX + "px";
+                hayirBtn.style.top = randomY + "px";
             }
         }
 
