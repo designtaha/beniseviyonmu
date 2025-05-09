@@ -67,10 +67,6 @@
             transform: scale(1); /* Devre dışı buton için animasyon yok */
         }
 
-        .hidden {
-            display: none;
-        }
-
         /* Kaybolma animasyonu */
         @keyframes fadeIn {
             0% {
@@ -107,27 +103,25 @@
         <div class="question">Beni seviyor musun?</div>
         <div class="answers">
             <button id="evetBtn" onclick="cevapEvet()">Evet</button>
-            <span id="hayirBtn" onmouseover="hayirKaçsın()" onclick="cevapHayir()">Hayır</span>
+            <span id="hayirBtn" onmouseover="hayirKaçsın()">Hayır</span>
         </div>
         <div id="message" class="hidden"></div>
     </div>
 
     <script>
-        let hayirBtnClicked = false;
-
-        // Hayır yazısına fare gelince yazının hareket etmesini sağla
+        // Hayır yazısının hareket edeceği yer
+        let hayirBtn = document.getElementById('hayirBtn');
+        
+        // Hayır yazısına fare geldiğinde hareket ettirme
         function hayirKaçsın() {
-            if (!hayirBtnClicked) {
-                const hayirBtn = document.getElementById('hayirBtn');
-                // Ekranın rastgele bir yerini hedefle
-                const randomX = Math.random() * (window.innerWidth - hayirBtn.offsetWidth);  // Ekranın genişliğine göre rastgele X
-                const randomY = Math.random() * (window.innerHeight - hayirBtn.offsetHeight); // Ekranın yüksekliğine göre rastgele Y
-                hayirBtn.style.left = randomX + "px";
-                hayirBtn.style.top = randomY + "px";
-            }
+            // Ekranın rastgele bir yerini hedefle
+            const randomX = Math.random() * (window.innerWidth - hayirBtn.offsetWidth);  // Ekranın genişliğine göre rastgele X
+            const randomY = Math.random() * (window.innerHeight - hayirBtn.offsetHeight); // Ekranın yüksekliğine göre rastgele Y
+            hayirBtn.style.left = randomX + "px";
+            hayirBtn.style.top = randomY + "px";
         }
 
-        // Evet butonuna tıklayınca "Biliyorum" mesajı
+        // Evet butonuna tıklayınca "Biliyorum!" mesajını gösterme
         function cevapEvet() {
             const message = document.getElementById('message');
             message.textContent = "Biliyorum! 😊";
@@ -136,20 +130,20 @@
             disableButtons();
         }
 
-        // Hayır butonuna tıklayınca "Hayır" yazısının kaybolması
-        function cevapHayir() {
-            hayirBtnClicked = true; // "Hayır" butonu tıklanmış olduğu için bir kez daha hareket etmesin
-            const hayirBtn = document.getElementById('hayirBtn');
-            hayirBtn.classList.add('hidden');
+        // Hayır butonuna tıklayınca "Hayır" yazısını kaybetme
+        hayirBtn.addEventListener('click', () => {
+            hayirBtn.classList.add('hidden');  // "Hayır" yazısı kaybolur
+            const message = document.getElementById('message');
+            message.textContent = "Hayır diyorsun! 😞";
+            message.style.color = "#ff4c6a"; // Kırmızı renk
+            message.classList.remove('hidden');
             disableButtons();
-        }
+        });
 
         // Butonları devre dışı bırakma
         function disableButtons() {
             const evetBtn = document.getElementById('evetBtn');
-            const hayirBtn = document.getElementById('hayirBtn');
             evetBtn.disabled = true;
-            hayirBtn.disabled = true;
         }
     </script>
 
