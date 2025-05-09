@@ -24,6 +24,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             padding: 40px;
             width: 400px;
+            position: relative; /* Konumlandırmayı sağlamak için */
         }
 
         .question {
@@ -34,9 +35,8 @@
         }
 
         .answers {
-            display: flex;  /* Flexbox kullanarak yan yana dizme */
-            justify-content: center;
-            gap: 40px; /* İki buton arasındaki boşluk */
+            display: flex;
+            justify-content: space-evenly; /* Butonları yatayda yerleştir */
             margin-top: 30px;
         }
 
