@@ -91,21 +91,23 @@
             animation: fadeIn 1.5s ease-in-out;
         }
 
-        /* Sürekli kaydırma animasyonu */
-        @keyframes moveButton {
+        /* Hareket animasyonu */
+        @keyframes moveAway {
             0% {
-                transform: translateX(0) translateY(0);
-            }
-            50% {
-                transform: translateX(20px) translateY(20px);
+                transform: translate(0, 0);
             }
             100% {
-                transform: translateX(0) translateY(0);
+                transform: translate(calc(50px + 10vw), calc(50px + 10vh));
             }
         }
 
-        .move-on-hover {
-            animation: moveButton 1s ease-in-out infinite;
+        /* Hayır butonunun hareketi */
+        .move-away {
+            animation: moveAway 0.3s ease-in-out forwards;
+        }
+
+        .move-back {
+            animation: moveAway 0.3s ease-in-out reverse;
         }
 
     </style>
@@ -116,22 +118,32 @@
         <div class="question">Beni seviyor musun?</div>
         <div class="answers">
             <button id="evetBtn" onclick="cevapEvet()">Evet</button>
-            <button id="hayirBtn" onmouseover="startHoverEffect()" onmouseout="stopHoverEffect()" onclick="cevapHayir()">Hayır</button>
+            <button id="hayirBtn" onmouseover="hayirKaçsın()" onmouseout="hayirGeriDön()" onclick="cevapHayir()" id="hayirBtnActive">Hayır</button>
         </div>
         <div id="message" class="hidden"></div>
     </div>
 
     <script>
-        // Hayır butonuna fareyle geldiğinde sürekli hareket etmeye başlar
-        function startHoverEffect() {
-            const hayirBtn = document.getElementById('hayirBtn');
-            hayirBtn.classList.add('move-on-hover'); // Hareket animasyonunu başlat
+        let hayirBtnClicked = false;
+
+        // Hayır butonuna fare gelince butonun hareket etmesini sağla
+        function hayirKaçsın() {
+            if (!hayirBtnClicked) {
+                const hayirBtn = document.getElementById('hayirBtn');
+                hayirBtn.classList.add('move-away'); // Hareket animasyonunu başlat
+                hayirBtn.classList.remove('move-back');
+                hayirBtn.style.pointerEvents = 'none'; // Butonu tıklanamaz hale getir
+            }
         }
 
-        // Fareyi Hayır butonundan çektiğinde animasyon durur
-        function stopHoverEffect() {
-            const hayirBtn = document.getElementById('hayirBtn');
-            hayirBtn.classList.remove('move-on-hover'); // Hareket animasyonunu durdur
+        // Fareyi çektiğinde butonu eski yerine geri getirmek
+        function hayirGeriDön() {
+            if (!hayirBtnClicked) {
+                const hayirBtn = document.getElementById('hayirBtn');
+                hayirBtn.classList.remove('move-away');
+                hayirBtn.classList.add('move-back'); // Hareket animasyonunu geri al
+                hayirBtn.style.pointerEvents = 'auto'; // Butonu tekrar tıklanabilir hale getir
+            }
         }
 
         // Evet butonuna tıklayınca "Biliyorum" mesajı
@@ -145,6 +157,7 @@
 
         // Hayır butonuna tıklayınca "Hayır" yazısının kaybolması
         function cevapHayir() {
+            hayirBtnClicked = true; // "Hayır" butonu tıklanmış olduğu için bir kez daha hareket etmesin
             const hayirBtn = document.getElementById('hayirBtn');
             hayirBtn.classList.add('hidden');
             disableButtons();
