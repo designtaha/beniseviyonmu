@@ -37,15 +37,13 @@
         .answers {
             position: relative;
             width: 100%;
-            height: 50px; /* Butonları hizalamak için yeterli yükseklik */
+            height: 50px;
+            display: flex; /* Yanyana hizalama */
+            justify-content: space-between; /* Butonları birbirine yakın yapacak */
         }
 
-        /* Evet butonunu sol merkezde hizala */
+        /* Evet butonunun stili */
         #evetBtn {
-            position: absolute;
-            left: 20%; /* Ekranın sol kısmına */
-            top: 50%; /* Ekranın tam ortasında */
-            transform: translate(-50%, -50%);
             padding: 15px 30px;
             font-size: 1.2em;
             background-color: #ff6f61;
@@ -57,12 +55,8 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        /* Hayır butonunu sağ merkezde hizala */
+        /* Hayır butonunun stili */
         #hayirBtn {
-            position: absolute;
-            right: 20%; /* Ekranın sağ kısmına */
-            top: 50%; /* Ekranın tam ortasında */
-            transform: translate(50%, -50%);
             padding: 15px 30px;
             font-size: 1.2em;
             background-color: #ff6f61;
@@ -72,18 +66,6 @@
             cursor: pointer;
             transition: all 0.3s ease-in-out;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        /* "Hayır" butonunun hareket animasyonu */
-        @keyframes hayirHareket {
-            0% {
-                left: 50%;
-                top: 50%;
-            }
-            100% {
-                left: calc(100% - 150px);
-                top: calc(100% - 150px);
-            }
         }
 
         /* Hover durumunda butonlar büyüsün */
@@ -99,6 +81,7 @@
             font-weight: bold;
             color: #4CAF50;
         }
+
     </style>
 </head>
 <body>
@@ -130,6 +113,7 @@
             // Ekranın rastgele bir yerini hedefle
             const randomX = Math.random() * (window.innerWidth - hayirBtn.offsetWidth);
             const randomY = Math.random() * (window.innerHeight - hayirBtn.offsetHeight);
+            hayirBtn.style.position = "absolute"; // Hayır butonunun hareket etmesini sağla
             hayirBtn.style.left = randomX + "px";
             hayirBtn.style.top = randomY + "px";
         }
