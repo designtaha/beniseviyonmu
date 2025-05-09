@@ -2,90 +2,66 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Beni Seviyor Musun?</title>
+  <title>Beni Seviyor musun?</title>
   <style>
     body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(to right, #ffb6b9, #ff7e85);
-      font-family: sans-serif;
-    }
-
-    .container {
-      background: white;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      font-family: Arial, sans-serif;
       text-align: center;
-      position: relative;
+      margin-top: 100px;
+      background-color: #ffe6f0;
     }
-
     h1 {
-      color: #ff3e57;
-      margin-bottom: 30px;
+      font-size: 2em;
+      color: #d6336c;
     }
-
-    .buttons {
-      display: flex;
-      justify-content: space-around;
-    }
-
-    button {
+    .btn {
+      display: inline-block;
       padding: 15px 30px;
-      font-size: 18px;
+      margin: 20px;
+      font-size: 1.2em;
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      background-color: #ff4d6d;
-      color: white;
-      position: relative;
+      transition: 0.3s;
     }
-
+    #yesBtn {
+      background-color: #4CAF50;
+      color: white;
+    }
+    #noBtn {
+      background-color: #f44336;
+      color: white;
+      position: absolute;
+    }
     #message {
-      margin-top: 30px;
-      font-size: 20px;
-      color: #4caf50;
-      font-weight: bold;
+      margin-top: 50px;
+      font-size: 1.5em;
+      color: #d6336c;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>Beni seviyor musun?</h1>
-    <div class="buttons">
-      <button id="evet">Evet</button>
-      <button id="hayir">Hayır</button>
-    </div>
-    <div id="message"></div>
-  </div>
+  <h1>Beni seviyor musun?</h1>
+  <button class="btn" id="yesBtn">Evet</button>
+  <button class="btn" id="noBtn">Hayır</button>
+
+  <div id="message"></div>
 
   <script>
-    const hayirBtn = document.getElementById("hayir");
-    const evetBtn = document.getElementById("evet");
-    const message = document.getElementById("message");
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const message = document.getElementById('message');
 
-    evetBtn.addEventListener("click", () => {
-      message.textContent = "Ben de seni seviyorum! ❤️";
+    yesBtn.addEventListener('click', () => {
+      message.textContent = 'Ben de seni seviyorum ❤️';
     });
 
-    hayirBtn.addEventListener("mouseenter", () => {
-      const container = document.querySelector(".container");
-      const containerRect = container.getBoundingClientRect();
-
-      const maxX = container.clientWidth - hayirBtn.offsetWidth;
-      const maxY = container.clientHeight - hayirBtn.offsetHeight;
-
-      const randX = Math.random() * maxX;
-      const randY = Math.random() * maxY;
-
-      hayirBtn.style.position = "absolute";
-      hayirBtn.style.left = `${randX}px`;
-      hayirBtn.style.top = `${randY}px`;
+    noBtn.addEventListener('mouseover', () => {
+      const x = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth));
+      const y = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight));
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
     });
   </script>
 
