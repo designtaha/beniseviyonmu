@@ -91,7 +91,7 @@
             animation: fadeIn 1.5s ease-in-out;
         }
 
-        /* Hareket animasyonu */
+        /* Hayır yazısının hareketi */
         @keyframes moveAway {
             0% {
                 transform: translate(0, 0);
@@ -101,7 +101,6 @@
             }
         }
 
-        /* Hayır butonunun hareketi */
         .move-away {
             animation: moveAway 0.3s ease-in-out forwards;
         }
@@ -110,6 +109,17 @@
             animation: moveAway 0.3s ease-in-out reverse;
         }
 
+        #hayirBtn {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Evet butonunun sabit kalması */
+        #evetBtn {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -118,7 +128,7 @@
         <div class="question">Beni seviyor musun?</div>
         <div class="answers">
             <button id="evetBtn" onclick="cevapEvet()">Evet</button>
-            <button id="hayirBtn" onmouseover="hayirKaçsın()" onmouseout="hayirGeriDön()" onclick="cevapHayir()" id="hayirBtnActive">Hayır</button>
+            <span id="hayirBtn" onmouseover="hayirKaçsın()" onmouseout="hayirGeriDön()" onclick="cevapHayir()">Hayır</span>
         </div>
         <div id="message" class="hidden"></div>
     </div>
@@ -126,23 +136,22 @@
     <script>
         let hayirBtnClicked = false;
 
-        // Hayır butonuna fare gelince butonun hareket etmesini sağla
+        // Hayır yazısına fare gelince yazının hareket etmesini sağla
         function hayirKaçsın() {
             if (!hayirBtnClicked) {
                 const hayirBtn = document.getElementById('hayirBtn');
                 hayirBtn.classList.add('move-away'); // Hareket animasyonunu başlat
-                hayirBtn.classList.remove('move-back');
-                hayirBtn.style.pointerEvents = 'none'; // Butonu tıklanamaz hale getir
+                hayirBtn.style.pointerEvents = 'none'; // Yazıyı tıklanamaz hale getir
             }
         }
 
-        // Fareyi çektiğinde butonu eski yerine geri getirmek
+        // Fareyi çektiğinde yazıyı eski yerine geri getirmek
         function hayirGeriDön() {
             if (!hayirBtnClicked) {
                 const hayirBtn = document.getElementById('hayirBtn');
                 hayirBtn.classList.remove('move-away');
                 hayirBtn.classList.add('move-back'); // Hareket animasyonunu geri al
-                hayirBtn.style.pointerEvents = 'auto'; // Butonu tekrar tıklanabilir hale getir
+                hayirBtn.style.pointerEvents = 'auto'; // Yazıyı tekrar tıklanabilir hale getir
             }
         }
 
