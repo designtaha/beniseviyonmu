@@ -23,7 +23,7 @@
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             padding: 40px;
-            width: 350px;
+            width: 400px;
             animation: fadeIn 1.5s ease-in-out;
         }
 
@@ -38,10 +38,11 @@
             font-size: 1.5em;
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 40px; /* İki buton arasındaki boşluk */
             margin-top: 30px;
         }
 
+        .answers span,
         .answers button {
             padding: 15px 30px;
             font-size: 1.2em;
@@ -55,16 +56,11 @@
             transform: scale(1);
         }
 
+        .answers span:hover,
         .answers button:hover {
             background-color: #ff4e3a;
-            transform: scale(1.1); /* Buton hover animasyonu */
+            transform: scale(1.1);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .answers button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            transform: scale(1); /* Devre dışı buton için animasyon yok */
         }
 
         /* Kaybolma animasyonu */
@@ -79,20 +75,38 @@
             }
         }
 
-        #message {
-            margin-top: 20px;
-            font-size: 1.4em;
-            font-weight: bold;
-            color: #fff;
-            animation: fadeIn 1.5s ease-in-out;
+        /* "Hayır" butonunun hareket animasyonu */
+        @keyframes hayirHareket {
+            0% {
+                left: 50%;
+                top: 50%;
+            }
+            100% {
+                left: calc(100% - 100px);
+                top: calc(100% - 100px);
+            }
         }
 
-        /* Hayır yazısının hareketi */
+        /* "Evet" butonunun hareket animasyonu */
+        @keyframes evetHareket {
+            0% {
+                left: 50%;
+                top: 50%;
+            }
+            100% {
+                left: calc(0% + 100px);
+                top: calc(100% - 50px);
+            }
+        }
+
         #hayirBtn {
             position: absolute;
-            display: inline-block;
-            cursor: pointer;
-            transition: transform 0.3s ease-in-out;
+            animation: hayirHareket 2s ease-in-out infinite alternate;
+        }
+
+        #evetBtn {
+            position: absolute;
+            animation: evetHareket 2s ease-in-out infinite alternate;
         }
 
     </style>
@@ -109,10 +123,10 @@
     </div>
 
     <script>
-        // Hayır yazısının hareket edeceği yer
         let hayirBtn = document.getElementById('hayirBtn');
+        let evetBtn = document.getElementById('evetBtn');
         
-        // Hayır yazısına fare geldiğinde hareket ettirme
+        // "Hayır" yazısına fare geldiğinde hareket ettirme
         function hayirKaçsın() {
             // Ekranın rastgele bir yerini hedefle
             const randomX = Math.random() * (window.innerWidth - hayirBtn.offsetWidth);  // Ekranın genişliğine göre rastgele X
@@ -121,7 +135,7 @@
             hayirBtn.style.top = randomY + "px";
         }
 
-        // Evet butonuna tıklayınca "Biliyorum!" mesajını gösterme
+        // "Evet" butonuna tıklayınca "Biliyorum!" mesajını gösterme
         function cevapEvet() {
             const message = document.getElementById('message');
             message.textContent = "Biliyorum! 😊";
@@ -130,7 +144,7 @@
             disableButtons();
         }
 
-        // Hayır butonuna tıklayınca "Hayır" yazısını kaybetme
+        // "Hayır" butonuna tıklayınca "Hayır" yazısını kaybetme
         hayirBtn.addEventListener('click', () => {
             hayirBtn.classList.add('hidden');  // "Hayır" yazısı kaybolur
             const message = document.getElementById('message');
