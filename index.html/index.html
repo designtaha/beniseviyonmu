@@ -19,30 +19,27 @@
 
         .game-container {
             text-align: center;
-            background-color: rgba(255, 255, 255, 0.8); /* Hafif transparan bir arka plan */
+            background-color: rgba(255, 255, 255, 0.9); /* Hafif transparan bir arka plan */
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             padding: 40px;
             width: 400px;
-            animation: fadeIn 1.5s ease-in-out;
         }
 
         .question {
             font-size: 2.5em;
             margin-bottom: 30px;
-            color: #ff4c6a; /* Tatlı kırmızı renk */
+            color: #ff4c6a;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .answers {
-            font-size: 1.5em;
             display: flex;
             justify-content: center;
-            gap: 40px; /* İki buton arasındaki boşluk */
+            gap: 40px;
             margin-top: 30px;
         }
 
-        .answers span,
         .answers button {
             padding: 15px 30px;
             font-size: 1.2em;
@@ -53,26 +50,19 @@
             cursor: pointer;
             transition: all 0.3s ease-in-out;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transform: scale(1);
         }
 
-        .answers span:hover,
         .answers button:hover {
             background-color: #ff4e3a;
             transform: scale(1.1);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* Kaybolma animasyonu */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        #message {
+            margin-top: 20px;
+            font-size: 2em;
+            font-weight: bold;
+            color: #4CAF50;
         }
 
         /* "Hayır" butonunun hareket animasyonu */
@@ -82,31 +72,15 @@
                 top: 50%;
             }
             100% {
-                left: calc(100% - 100px);
-                top: calc(100% - 100px);
+                left: calc(100% - 150px);
+                top: calc(100% - 150px);
             }
         }
 
-        /* "Evet" butonunun hareket animasyonu */
-        @keyframes evetHareket {
-            0% {
-                left: 50%;
-                top: 50%;
-            }
-            100% {
-                left: calc(0% + 100px);
-                top: calc(100% - 50px);
-            }
-        }
-
+        /* "Hayır" butonunun pozisyonu */
         #hayirBtn {
             position: absolute;
-            animation: hayirHareket 2s ease-in-out infinite alternate;
-        }
-
-        #evetBtn {
-            position: absolute;
-            animation: evetHareket 2s ease-in-out infinite alternate;
+            transition: all 0.3s ease-in-out;
         }
 
     </style>
@@ -117,48 +91,37 @@
         <div class="question">Beni seviyor musun?</div>
         <div class="answers">
             <button id="evetBtn" onclick="cevapEvet()">Evet</button>
-            <span id="hayirBtn" onmouseover="hayirKaçsın()">Hayır</span>
+            <button id="hayirBtn" onmouseover="hayirKaçsın()">Hayır</button>
         </div>
-        <div id="message" class="hidden"></div>
+        <div id="message"></div>
     </div>
 
     <script>
         let hayirBtn = document.getElementById('hayirBtn');
         let evetBtn = document.getElementById('evetBtn');
-        
-        // "Hayır" yazısına fare geldiğinde hareket ettirme
+        let message = document.getElementById('message');
+
+        // "Evet" butonuna tıklanırsa "Ben de seni seviyorum!" mesajını göster
+        function cevapEvet() {
+            message.textContent = "Ben de seni seviyorum! ❤️";
+            message.style.color = "#7ef6a3"; // Tatlı yeşil
+            hayirBtn.disabled = true; // "Hayır" butonunu devre dışı bırak
+            evetBtn.disabled = true; // "Evet" butonunu devre dışı bırak
+        }
+
+        // "Hayır" butonuna fare geldiğinde hareket etmesini sağla
         function hayirKaçsın() {
             // Ekranın rastgele bir yerini hedefle
-            const randomX = Math.random() * (window.innerWidth - hayirBtn.offsetWidth);  // Ekranın genişliğine göre rastgele X
-            const randomY = Math.random() * (window.innerHeight - hayirBtn.offsetHeight); // Ekranın yüksekliğine göre rastgele Y
+            const randomX = Math.random() * (window.innerWidth - hayirBtn.offsetWidth);
+            const randomY = Math.random() * (window.innerHeight - hayirBtn.offsetHeight);
             hayirBtn.style.left = randomX + "px";
             hayirBtn.style.top = randomY + "px";
         }
 
-        // "Evet" butonuna tıklayınca "Biliyorum!" mesajını gösterme
-        function cevapEvet() {
-            const message = document.getElementById('message');
-            message.textContent = "Biliyorum! 😊";
-            message.style.color = "#7ef6a3"; // Tatlı yeşil
-            message.classList.remove('hidden');
-            disableButtons();
-        }
-
-        // "Hayır" butonuna tıklayınca "Hayır" yazısını kaybetme
-        hayirBtn.addEventListener('click', () => {
-            hayirBtn.classList.add('hidden');  // "Hayır" yazısı kaybolur
-            const message = document.getElementById('message');
-            message.textContent = "Hayır diyorsun! 😞";
-            message.style.color = "#ff4c6a"; // Kırmızı renk
-            message.classList.remove('hidden');
-            disableButtons();
+        // Mouse tekrar "Hayır" yazısına gelince, "Hayır" butonunun yeniden hareket etmesini sağla
+        hayirBtn.addEventListener('mouseover', function() {
+            hayirKaçsın(); // Hayır butonunun hareket etmesi
         });
-
-        // Butonları devre dışı bırakma
-        function disableButtons() {
-            const evetBtn = document.getElementById('evetBtn');
-            evetBtn.disabled = true;
-        }
     </script>
 
 </body>
