@@ -106,22 +106,19 @@
     </div>
 
     <script>
-        let hayirBtn = document.getElementById('hayirBtn');
-        let evetBtn = document.getElementById('evetBtn');
-        let message = document.getElementById('message');
         let hayirText = document.getElementById('hayirText');
-
+        let hayirBtn = document.getElementById('hayirBtn');
+        let message = document.getElementById('message');
+        
         // "Evet" butonuna tıklanırsa "Ben de seni seviyorum!" mesajını göster
         function cevapEvet() {
             message.textContent = "Ben de seni seviyorum! ❤️";
             message.style.color = "#7ef6a3"; // Tatlı yeşil
             hayirBtn.disabled = true; // "Hayır" butonunu devre dışı bırak
-            evetBtn.disabled = true; // "Evet" butonunu devre dışı bırak
         }
 
         // "Hayır" butonuna fare geldiğinde "Hayır" yazısını hareket ettir
         function hayirKaçsın() {
-            // Ekranın rastgele bir yerini hedefle
             const maxX = window.innerWidth - hayirText.offsetWidth; // Ekranın genişliği - "Hayır" yazısının genişliği
             const maxY = window.innerHeight - hayirText.offsetHeight; // Ekranın yüksekliği - "Hayır" yazısının yüksekliği
             
