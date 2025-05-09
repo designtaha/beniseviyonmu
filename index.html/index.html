@@ -81,6 +81,15 @@
             color: #4CAF50;
         }
 
+        /* Hayır yazısının stilini buradan belirleyebiliriz */
+        #hayirText {
+            position: absolute;
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff6f61;
+            transition: all 0.3s ease;
+        }
+
     </style>
 </head>
 <body>
@@ -92,12 +101,15 @@
             <button id="hayirBtn" onmouseover="hayirKaçsın()">Hayır</button>
         </div>
         <div id="message"></div>
+        <!-- Hayır yazısı buraya eklenecek -->
+        <div id="hayirText">Hayır</div>
     </div>
 
     <script>
         let hayirBtn = document.getElementById('hayirBtn');
         let evetBtn = document.getElementById('evetBtn');
         let message = document.getElementById('message');
+        let hayirText = document.getElementById('hayirText');
 
         // "Evet" butonuna tıklanırsa "Ben de seni seviyorum!" mesajını göster
         function cevapEvet() {
@@ -107,19 +119,18 @@
             evetBtn.disabled = true; // "Evet" butonunu devre dışı bırak
         }
 
-        // "Hayır" butonuna fare geldiğinde hareket etmesini sağla
+        // "Hayır" butonuna fare geldiğinde "Hayır" yazısını hareket ettir
         function hayirKaçsın() {
             // Ekranın rastgele bir yerini hedefle
-            const randomX = Math.random() * (window.innerWidth - hayirBtn.offsetWidth);
-            const randomY = Math.random() * (window.innerHeight - hayirBtn.offsetHeight);
-            hayirBtn.style.position = "absolute"; // Hayır butonunun hareket etmesini sağla
-            hayirBtn.style.left = randomX + "px";
-            hayirBtn.style.top = randomY + "px";
+            const randomX = Math.random() * (window.innerWidth - hayirText.offsetWidth);
+            const randomY = Math.random() * (window.innerHeight - hayirText.offsetHeight);
+            hayirText.style.left = randomX + "px"; // Yeni X konumu
+            hayirText.style.top = randomY + "px"; // Yeni Y konumu
         }
 
-        // Mouse tekrar "Hayır" yazısına gelince, "Hayır" butonunun yeniden hareket etmesini sağla
-        hayirBtn.addEventListener('mouseover', function() {
-            hayirKaçsın(); // Hayır butonunun hareket etmesi
+        // Mouse tekrar "Hayır" yazısına gelince, "Hayır" yazısının yeniden hareket etmesini sağla
+        hayirText.addEventListener('mouseover', function() {
+            hayirKaçsın(); // "Hayır" yazısının hareket etmesi
         });
     </script>
 
