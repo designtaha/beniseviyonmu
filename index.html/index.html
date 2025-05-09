@@ -88,6 +88,7 @@
             font-weight: bold;
             color: #ff6f61;
             transition: all 0.3s ease;
+            /* Başlangıçta görünür olacak şekilde ayarlandı */
         }
 
     </style>
@@ -101,7 +102,7 @@
             <button id="hayirBtn" onmouseover="hayirKaçsın()">Hayır</button>
         </div>
         <div id="message"></div>
-        <!-- Sadece bu Hayır yazısı hareket edecek -->
+        <!-- Hayır yazısı sadece burada olacak -->
         <div id="hayirText">Hayır</div>
     </div>
 
@@ -115,6 +116,7 @@
             message.textContent = "Ben de seni seviyorum! ❤️";
             message.style.color = "#7ef6a3"; // Tatlı yeşil
             hayirBtn.disabled = true; // "Hayır" butonunu devre dışı bırak
+            hayirText.style.display = 'none'; // "Hayır" yazısı gizlensin
         }
 
         // "Hayır" butonuna fare geldiğinde "Hayır" yazısını hareket ettir
