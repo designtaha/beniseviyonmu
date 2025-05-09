@@ -88,7 +88,8 @@
             font-weight: bold;
             color: #ff6f61;
             transition: all 0.3s ease;
-            /* Başlangıçta görünür olacak şekilde ayarlandı */
+            left: 50%; /* Başlangıçta ortada */
+            transform: translateX(-50%); /* Ortada tam hizalamak için */
         }
 
     </style>
@@ -121,6 +122,7 @@
 
         // "Hayır" butonuna fare geldiğinde "Hayır" yazısını hareket ettir
         function hayirKaçsın() {
+            // Sadece ilk "Hayır" yazısı hareket etsin
             const maxX = window.innerWidth - hayirText.offsetWidth; // Ekranın genişliği - "Hayır" yazısının genişliği
             const maxY = window.innerHeight - hayirText.offsetHeight; // Ekranın yüksekliği - "Hayır" yazısının yüksekliği
             
