@@ -98,7 +98,7 @@
         <div class="question">Beni seviyor musun?</div>
         <div class="answers">
             <button id="evetBtn" onclick="cevapEvet()">Evet</button>
-            <button id="hayirBtn" onmouseover="hayirKaçsın()">Hayır</button>
+            <button id="hayirBtn">Hayır</button>
         </div>
         <div id="message"></div>
         <!-- Hayır yazısı buraya eklenecek -->
@@ -118,6 +118,11 @@
         }
 
         // "Hayır" butonuna fare geldiğinde "Hayır" yazısını hareket ettir
+        hayirBtn.addEventListener('mouseover', function() {
+            hayirKaçsın(); // "Hayır" yazısının hareket etmesi
+        });
+
+        // "Hayır" yazısının hareket etmesini sağlayan fonksiyon
         function hayirKaçsın() {
             const maxX = window.innerWidth - hayirText.offsetWidth; // Ekranın genişliği - "Hayır" yazısının genişliği
             const maxY = window.innerHeight - hayirText.offsetHeight; // Ekranın yüksekliği - "Hayır" yazısının yüksekliği
@@ -129,10 +134,6 @@
             hayirText.style.top = randomY + "px"; // Yeni Y konumu
         }
 
-        // Mouse tekrar "Hayır" yazısına gelince, "Hayır" yazısının yeniden hareket etmesini sağla
-        hayirText.addEventListener('mouseover', function() {
-            hayirKaçsın(); // "Hayır" yazısının hareket etmesi
-        });
     </script>
 
 </body>
