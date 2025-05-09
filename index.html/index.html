@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beni Seviyor Musun?</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff9a8b, #ff6a00); /* Tatlı renk geçişi */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .game-container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8); /* Hafif transparan bir arka plan */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 350px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .question {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #ff4c6a; /* Tatlı kırmızı renk */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .answers {
+            font-size: 1.5em;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .answers button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transform: scale(1);
+        }
+
+        .answers button:hover {
+            background-color: #ff4e3a;
+            transform: scale(1.1); /* Buton hover animasyonu */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .answers button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: scale(1); /* Devre dışı buton için animasyon yok */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Kaybolma animasyonu */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #fff;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        /* Kaydırma animasyonu */
+        @keyframes slide {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(150px);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <div class="question">Beni seviyor musun?</div>
+        <div class="answers">
+            <button id="evetBtn" onclick="cevapEvet()">Evet</button>
+            <button id="hayirBtn" onmouseover="kaydirHayir()" onclick="cevapHayir()">Hayır</button>
+        </div>
+        <div id="message" class="hidden"></div>
+    </div>
+
+    <script>
+        // Hayır butonuna fareyi getirince kayması
+        function kaydirHayir() {
+            const hayirBtn = document.getElementById('hayirBtn');
+            hayirBtn.style.animation = 'slide 0.5s ease-in-out';
+        }
+
+        // Evet butonuna tıklayınca "Biliyorum" mesajı
+        function cevapEvet() {
+            const message = document.getElementById('message');
+            message.textContent = "Biliyorum! 😊";
+            message.style.color = "#7ef6a3"; // Tatlı yeşil
+            message.classList.remove('hidden');
+            disableButtons();
+        }
+
+        // Hayır butonuna tıklayınca "Hayır" yazısının kaybolması
+        function cevapHayir() {
+            const hayirBtn = document.getElementById('hayirBtn');
+            hayirBtn.classList.add('hidden');
+            disableButtons();
+        }
+
+        // Butonları devre dışı bırakma
+        function disableButtons() {
+            const evetBtn = document.getElementById('evetBtn');
+            const hayirBtn = document.getElementById('hayirBtn');
+            evetBtn.disabled = true;
+            hayirBtn.disabled = true;
+        }
+    </script>
+
+</body>
+</html>
