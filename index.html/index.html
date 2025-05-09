@@ -91,14 +91,21 @@
             animation: fadeIn 1.5s ease-in-out;
         }
 
-        /* Kaydırma animasyonu */
-        @keyframes slide {
+        /* Sürekli kaydırma animasyonu */
+        @keyframes moveButton {
             0% {
-                transform: translateX(0);
+                transform: translateX(0) translateY(0);
+            }
+            50% {
+                transform: translateX(20px) translateY(20px);
             }
             100% {
-                transform: translateX(150px);
+                transform: translateX(0) translateY(0);
             }
+        }
+
+        .move-on-hover {
+            animation: moveButton 1s ease-in-out infinite;
         }
 
     </style>
@@ -109,16 +116,22 @@
         <div class="question">Beni seviyor musun?</div>
         <div class="answers">
             <button id="evetBtn" onclick="cevapEvet()">Evet</button>
-            <button id="hayirBtn" onmouseover="kaydirHayir()" onclick="cevapHayir()">Hayır</button>
+            <button id="hayirBtn" onmouseover="startHoverEffect()" onmouseout="stopHoverEffect()" onclick="cevapHayir()">Hayır</button>
         </div>
         <div id="message" class="hidden"></div>
     </div>
 
     <script>
-        // Hayır butonuna fareyi getirince kayması
-        function kaydirHayir() {
+        // Hayır butonuna fareyle geldiğinde sürekli hareket etmeye başlar
+        function startHoverEffect() {
             const hayirBtn = document.getElementById('hayirBtn');
-            hayirBtn.style.animation = 'slide 0.5s ease-in-out';
+            hayirBtn.classList.add('move-on-hover'); // Hareket animasyonunu başlat
+        }
+
+        // Fareyi Hayır butonundan çektiğinde animasyon durur
+        function stopHoverEffect() {
+            const hayirBtn = document.getElementById('hayirBtn');
+            hayirBtn.classList.remove('move-on-hover'); // Hareket animasyonunu durdur
         }
 
         // Evet butonuna tıklayınca "Biliyorum" mesajı
