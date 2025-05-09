@@ -122,8 +122,12 @@
         // "Hayır" butonuna fare geldiğinde "Hayır" yazısını hareket ettir
         function hayirKaçsın() {
             // Ekranın rastgele bir yerini hedefle
-            const randomX = Math.random() * (window.innerWidth - hayirText.offsetWidth);
-            const randomY = Math.random() * (window.innerHeight - hayirText.offsetHeight);
+            const maxX = window.innerWidth - hayirText.offsetWidth; // Ekranın genişliği - "Hayır" yazısının genişliği
+            const maxY = window.innerHeight - hayirText.offsetHeight; // Ekranın yüksekliği - "Hayır" yazısının yüksekliği
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
             hayirText.style.left = randomX + "px"; // Yeni X konumu
             hayirText.style.top = randomY + "px"; // Yeni Y konumu
         }
