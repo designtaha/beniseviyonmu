@@ -1,139 +1,93 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beni Seviyor Musun?</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #ff9a8b, #ff6a00);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8">
+  <title>Beni Seviyor Musun?</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to right, #ffb6b9, #ff7e85);
+      font-family: sans-serif;
+    }
 
-        .game-container {
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            width: 400px;
-            position: relative;
-        }
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      position: relative;
+    }
 
-        .question {
-            font-size: 2.5em;
-            margin-bottom: 30px;
-            color: #ff4c6a;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
+    h1 {
+      color: #ff3e57;
+      margin-bottom: 30px;
+    }
 
-        .answers {
-            display: flex;
-            justify-content: space-evenly;
-            width: 100%;
-            margin-top: 20px;
-        }
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+    }
 
-        /* Evet butonunun stili */
-        #evetBtn {
-            padding: 15px 30px;
-            font-size: 1.2em;
-            background-color: #ff6f61;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background-color: #ff4d6d;
+      color: white;
+      position: relative;
+    }
 
-        /* Hayır butonunun stili */
-        #hayirBtn {
-            padding: 15px 30px;
-            font-size: 1.2em;
-            background-color: #ff6f61;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Hover durumunda butonlar büyüsün */
-        .answers button:hover {
-            background-color: #ff4e3a;
-            transform: scale(1.1);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        #message {
-            margin-top: 20px;
-            font-size: 2em;
-            font-weight: bold;
-            color: #4CAF50;
-        }
-
-        /* Hayır yazısının stilini buradan belirleyebiliriz */
-        #hayirText {
-            position: absolute;
-            font-size: 2em;
-            font-weight: bold;
-            color: #ff6f61;
-            transition: all 0.3s ease;
-            left: 50%; 
-            transform: translateX(-50%);
-        }
-
-    </style>
+    #message {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #4caf50;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="game-container">
-        <div class="question">Beni seviyor musun?</div>
-        <div class="answers">
-            <button id="evetBtn" onclick="cevapEvet()">Evet</button>
-            <button id="hayirBtn" onmouseover="hayirKaçsın()">Hayır</button>
-        </div>
-        <div id="message"></div>
-        <!-- Hayır yazısı sadece burada olacak -->
-        <div id="hayirText">Hayır</div>
+  <div class="container">
+    <h1>Beni seviyor musun?</h1>
+    <div class="buttons">
+      <button id="evet">Evet</button>
+      <button id="hayir">Hayır</button>
     </div>
+    <div id="message"></div>
+  </div>
 
-    <script>
-        let hayirText = document.getElementById('hayirText');
-        let hayirBtn = document.getElementById('hayirBtn');
-        let message = document.getElementById('message');
-        
-        // "Evet" butonuna tıklanırsa "Ben de seni seviyorum!" mesajını göster
-        function cevapEvet() {
-            message.textContent = "Ben de seni seviyorum! ❤️";
-            message.style.color = "#7ef6a3"; // Tatlı yeşil
-            hayirBtn.disabled = true; // "Hayır" butonunu devre dışı bırak
-            hayirText.style.display = 'none'; // "Hayır" yazısı gizlensin
-        }
+  <script>
+    const hayirBtn = document.getElementById("hayir");
+    const evetBtn = document.getElementById("evet");
+    const message = document.getElementById("message");
 
-        // "Hayır" butonuna fare geldiğinde "Hayır" yazısını hareket ettir
-        function hayirKaçsın() {
-            // Sadece ilk "Hayır" yazısı hareket etsin
-            const maxX = window.innerWidth - hayirText.offsetWidth; // Ekranın genişliği - "Hayır" yazısının genişliği
-            const maxY = window.innerHeight - hayirText.offsetHeight; // Ekranın yüksekliği - "Hayır" yazısının yüksekliği
-            
-            const randomX = Math.random() * maxX;
-            const randomY = Math.random() * maxY;
+    evetBtn.addEventListener("click", () => {
+      message.textContent = "Ben de seni seviyorum! ❤️";
+    });
 
-            hayirText.style.left = randomX + "px"; // Yeni X konumu
-            hayirText.style.top = randomY + "px"; // Yeni Y konumu
-        }
+    hayirBtn.addEventListener("mouseenter", () => {
+      const container = document.querySelector(".container");
+      const containerRect = container.getBoundingClientRect();
 
-    </script>
+      const maxX = container.clientWidth - hayirBtn.offsetWidth;
+      const maxY = container.clientHeight - hayirBtn.offsetHeight;
+
+      const randX = Math.random() * maxX;
+      const randY = Math.random() * maxY;
+
+      hayirBtn.style.position = "absolute";
+      hayirBtn.style.left = `${randX}px`;
+      hayirBtn.style.top = `${randY}px`;
+    });
+  </script>
 
 </body>
 </html>
